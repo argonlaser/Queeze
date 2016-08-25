@@ -1,3 +1,3 @@
 # queeze
 Lets you quiz !
-<Clean up pending>
+test commit !

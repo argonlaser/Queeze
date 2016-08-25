@@ -1,0 +1,6 @@
+{
+	"questions" :
+	[{"no":1,"ques":"Tell vinoth rollno","ans1":"11i252","ans2":"11i255","ans3":"11i222","ans4":"11i266","correct":"ans2"},
+{"no":2,"ques":"Whats the main concept behind OOPS?","ans1":"Abstraction","ans2":"Inheritansce ","ans3":"Polymorphism","ans4":"All of the above","correct":"ans4"},
+{"no":3,"ques":"Who is the world best programmer??","ans1":"Linus Torvalds","ans2":"Steve Jobs","ans3":"Mark Zuckerberg","ans4":"All of the above","correct":"ans4"}]
+}

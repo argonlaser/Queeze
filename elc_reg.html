@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Registration </title>
+		<link  type="text/css" rel="stylesheet" href="elc_reg.css">
+	</head>
+	<body bgcolor="orange"> 
+		<h1>
+		<center>INFORMATION TECHNOLOGY ASSOCIATION</center>
+		</h1>
+		<hr/>
+		
+		<center>
+			<h3>Registration Form</h3>
+			<form method="post" action="http://localhost:1337/submitDetails">	
+				<label for="name"> Name :  </label>
+				<input type="text" name="name" id="name"><br/><br/>
+				<label for="rollno">Roll no : </label>
+				<input type="text" name="rollno" id="rollno"><br/><br/>
+				Year:
+				<select name="year">
+				  <option value="1">1st year</option>
+				  <option value="2">2nd year</option> 
+				  <option value="3">3rd year</option>
+				  <option value="4">4th year</option>
+				</select>
+				<br/>
+				<br/>
+				<p> Select the events you want to participate in : </p>
+
+				<input type="checkbox" name="events" value="crossword"  /> CROSS WORD <br /> </br/>
+
+				<input type="checkbox" name="events" value="dumbcharade"  /> DUMB CHARADE <br /><br/>
+
+				<input type="checkbox" name="events" value="extempore"  /> EXTEMPORE <br /> <br/>
+
+				<input type="checkbox" name="events" value="picompositon"  /> PICTURE COMPOSITION <br /><br/>
+
+				<input type="checkbox" name="events" value="readingskill"  /> READING SKILL <br /><br/>
+
+				<input type="checkbox" name="events" value="justamin"  /> JUST A MINUTE <br /><br/>
+
+				<input type="checkbox" name="events" value="listeningskill"  /> LISTENING SKILL <br /><br/>
+				
+				<input type="submit" name="submit" value="Submit"/>
+				<input type="reset"  value="Reset"/>			
+			
+			</form>
+		<center>
+			
+	</body>
+</html>

@@ -1,0 +1,25 @@
+h1 {
+	
+	font-weight: Strong;
+	color: White;
+	outline-color: White;
+
+}
+p {
+	color: Black; 
+	font-size: 20px;
+
+	
+}
+
+
+	#footer {
+		background-color: white ;
+		border-style: dotted;
+		font-size: 20px;
+    position: fixed;
+    z-index: 100; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+	}

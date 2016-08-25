@@ -1,0 +1,25 @@
+{
+  "name": "queeze",
+  "version": "1.0.0",
+  "description": "Lets you host quiz",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^3.4.8",
+    "mysql": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/argonlaser/queeze.git"
+  },
+  "author": "Venkata krishna.S (vkvenkat94@gmail.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/argonlaser/queeze/issues"
+  },
+  "homepage": "https://github.com/argonlaser/queeze"
+}

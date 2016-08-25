@@ -1,0 +1,38 @@
+	#greet
+	{
+	font-family: Cursive ;	
+	color: White;
+	outline-color: White;
+
+	}
+	#timerOut {
+		background-color: white ;
+		border-style: dotted;
+		font-size: 20px;
+    position: fixed;
+    z-index: 100; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+	}
+	#timerIn{
+
+		font-weight: bold;
+	}
+	h1 {
+	font-family: Cursive ;
+	font-weight: Strong;
+	color: White;
+	outline-color: White;
+	}
+	#myform
+	{
+		font-size: 20px;
+
+	}
+	#mysubmit{
+		font-size: 15px;
+		height: 5em ;
+		width: 15em;
+
+	}

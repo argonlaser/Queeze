@@ -114,11 +114,14 @@ app.post("/submitAnswers" , function(req , res ) {
   console.log(rollno + " scored " + count);
 });
 
-app.listen(1337,function() {
-  console.log('server started');
-});
+//app.listen(process.env.API_PORT,function() {
+//  console.log('server started');
+//});
 
 shuffle = function(v) {
   for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
   return v;
 };
+
+
+module.exports = app;

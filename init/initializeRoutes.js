@@ -58,6 +58,12 @@ app.get("/elc_reg", function(req,res) {
 
 //POST details request
 app.post("/submitDetails",function(req,res) {
+  var getQuesdata = require('./getQuesData.js');
+  var data = null;
+  getQuesdata(function(err, localData){
+    console.log(data);
+    data = localData;
+  })
   var rollno = req.body.rollno;
   var name = req.body.name ;
   var year = req.body.year ;

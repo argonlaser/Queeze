@@ -14,12 +14,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-//read json
-var file = __dirname + '/ques.json';
-var str = fs.readFileSync(file).toString();
-//console.log(str);
-data = JSON.parse(str);
-
 var dbParams = {};
 initializeDbConnection(function (err, dbConnection) {
     if (err) {

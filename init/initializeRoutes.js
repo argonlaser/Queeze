@@ -61,7 +61,6 @@ app.post("/submitDetails",function(req,res) {
   var getQuesdata = require('./getQuesData.js');
   var data = null;
   getQuesdata(function(err, localData){
-    console.log(data);
     data = localData;
   })
   var rollno = req.body.rollno;
@@ -84,8 +83,7 @@ app.post("/submitDetails",function(req,res) {
 
       var mytemp = "";
       mytemp = "<form  id=\"myform\" name=\"myform\" method=\"post\" action=\"http://localhost:1337/submitAnswers/?rollno="+rollno+"\">"; 
-
-      shuffle(data.questions);
+      
       for(var i = 0 ; i < 3 ; i++) {
         mytemp += data.questions[i].ques.toString() + "<br />";
         mytemp += "<input type=\"radio\" name=\"q" + i.toString() + "\" value=\"ans1\" /> " + data.questions[i].ans1  + "<br /> " ;
@@ -135,10 +133,7 @@ app.post("/submitAnswers" , function(req , res ) {
   console.log(rollno + " scored " + count);
 });
 
-var shuffle = function(v) {
-  for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
-  return v;
-};
+
 
 
  

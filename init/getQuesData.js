@@ -1,4 +1,4 @@
-module.exports = function(callback) {
+var parseJson = function(callback) {
 
   //read json
   var fs = require('fs');
@@ -9,7 +9,7 @@ module.exports = function(callback) {
   }
   catch (err) {
     console.log('File exception : ' + err);
-    return callback(err,data);
+    return callback(err, data);
   }
   try{
     data = JSON.parse(str);
@@ -18,6 +18,12 @@ module.exports = function(callback) {
     console.log('Error parsing json : ' + err);
     return callback(err,data);
   }
-  console.log('Parsed json - ' + data);
+  _shuffle(data.questions);
   return callback(null,data);
 }
+
+var _shuffle = function(v) {
+  for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
+  return v;
+};
+module.exports = parseJson;

@@ -16,9 +16,9 @@ data = JSON.parse(str);
 
 //mysql connection
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : '123456',
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : process.env.DB_PASSWORD,
 });
 connection.connect();
 
@@ -113,10 +113,6 @@ app.post("/submitAnswers" , function(req , res ) {
   });
   console.log(rollno + " scored " + count);
 });
-
-//app.listen(process.env.API_PORT,function() {
-//  console.log('server started');
-//});
 
 shuffle = function(v) {
   for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);

@@ -3,6 +3,7 @@
 module.exports = function (app, dbParams) {
   var tracker = 'init|initializeRoutes.js';
   var url = require('url');
+  
 //  logger.debug(tracker, 'Inside');
 //  var userRoute = require('../Users/routes.js')(params);
 //  var gameRoute = require('../Games/routes.js')(params);
@@ -57,7 +58,6 @@ app.get("/elc_reg", function(req,res) {
 
 //POST details request
 app.post("/submitDetails",function(req,res) {
-  console.log(req.body);
   var rollno = req.body.rollno;
   var name = req.body.name ;
   var year = req.body.year ;

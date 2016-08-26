@@ -5,6 +5,8 @@ var url = require('url');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
+var initializeDbConnection = require('./init/initializeDbConnection.js');
+var initializeRoutes = require('./init/initializeRoutes.js');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -14,19 +16,25 @@ var str = fs.readFileSync(file).toString();
 //console.log(str);
 data = JSON.parse(str);
 
-//mysql connection
-var connection = mysql.createConnection({
-  host     : process.env.DB_HOST,
-  user     : process.env.DB_USER,
-  password : process.env.DB_PASSWORD,
-});
-connection.connect();
+var dbParams = {};
+initializeDbConnection(function (err, dbConnection) {
+    
+    if (err) {
+      process.exitCode = 1;
+    }
+    dbParams.dbConnection = dbConnection;
+    if(dbConnection) {
+      console.log('DB connected');
+    }
+    initializeRoutes(app, dbParams);
+  });
 
 //express js body parser to get JSON from HTML Form in POST request
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//GET home page request
+
+ //GET home page request
 app.get("/",function(req,res){
   res.sendfile(__dirname + '/views/elc.html');
 });
@@ -50,7 +58,7 @@ app.post("/submitDetails",function(req,res) {
     eventsStr += req.body.events[x] + "," ;
   }
 
-  connection.query( "INSERT INTO `elc`.`student` (`rollno`, `name`,`year`,`events`,`mark`) VALUES ('"+ rollno +"','"+ name +"','"+year+"','"+eventsStr+"','"+mark+"');" , function(err, rows, fields) {
+  dbParams.dbConnection.query( "INSERT INTO `elc`.`student` (`rollno`, `name`,`year`,`events`,`mark`) VALUES ('"+ rollno +"','"+ name +"','"+year+"','"+eventsStr+"','"+mark+"');" , function(err, rows, fields) {
     if (err) {
       res.send('error occured' + err );
     } else {
@@ -84,11 +92,7 @@ app.post("/submitAnswers" , function(req , res ) {
   var rollno = queryData.rollno;
   var temp = "" ;
   var count = 0 ;
-
-  //console.log("req.body \n \n ")
-  //console.log(req.body);
-  //console.log(req.body['q0']);
-
+  
   for( var ele in req.body) {
     if(ele.substring(0,1) === 'q') {
       var numStr = ele.toString().replace(/q/,'');
@@ -103,7 +107,7 @@ app.post("/submitAnswers" , function(req , res ) {
   }
 
   //update mark on mysql
-  connection.query( "UPDATE `elc`.`student` SET `mark`='"+count+"' WHERE `rollno`='"+rollno+"';" ,function(err,rows,fields) {
+  dbParams.dbConnection.query( "UPDATE `elc`.`student` SET `mark`='"+count+"' WHERE `rollno`='"+rollno+"';" ,function(err,rows,fields) {
     if(err) {
       res.send(err);
     } else {
@@ -118,6 +122,5 @@ shuffle = function(v) {
   for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
   return v;
 };
-
 
 module.exports = app;

@@ -60,7 +60,7 @@ app.get("/elc_reg", function(req,res) {
 app.post("/submitDetails",function(req,res) {
   var getQuesdata = require('./getQuesData.js');
   var data = null;
-  getQuesdata(function(err, localData){
+  getQuesdata(function(err, localData) {
     data = localData;
   })
   var rollno = req.body.rollno;
@@ -83,7 +83,7 @@ app.post("/submitDetails",function(req,res) {
 
       var mytemp = "";
       mytemp = "<form  id=\"myform\" name=\"myform\" method=\"post\" action=\"http://localhost:1337/submitAnswers/?rollno="+rollno+"\">"; 
-      
+
       for(var i = 0 ; i < 3 ; i++) {
         mytemp += data.questions[i].ques.toString() + "<br />";
         mytemp += "<input type=\"radio\" name=\"q" + i.toString() + "\" value=\"ans1\" /> " + data.questions[i].ans1  + "<br /> " ;
@@ -103,11 +103,15 @@ app.post("/submitDetails",function(req,res) {
 });
 
 app.post("/submitAnswers" , function(req , res ) {
+  var getQuesdata = require('./getQuesData.js');
   var queryData = url.parse(req.url, true).query;
   var rollno = queryData.rollno;
   var temp = "" ;
   var count = 0 ;
-  
+  var data = null;
+  getQuesdata(function(err, localData) {
+    data = localData;
+  });
   for( var ele in req.body) {
     if(ele.substring(0,1) === 'q') {
       var numStr = ele.toString().replace(/q/,'');
@@ -144,18 +148,18 @@ app.post("/submitAnswers" , function(req , res ) {
   // error handlers
   // development error handler
   // will print stacktrace
-//  if (app.get('env') === 'development') {
-//    app.use(function(err, req, res, next) {
-//      res.status(err.code);
-//      res.statusMessage = err.message;
-//      res.json({ error : err.error });
-//    });
-//  }
+  if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+      res.status(err.code);
+      res.statusMessage = err.message;
+      res.json({ error : err.error });
+    });
+  }
 
   // production error handler
   // no stacktraces leaked to user
-//  app.use(function(err, req, res, next) {
-//    res.status(err.code);
-//    res.json({ error : err.error });
-//  });
+  app.use(function(err, req, res, next) {
+    res.status(err.code);
+    res.json({ error : err.error });
+  });
 };

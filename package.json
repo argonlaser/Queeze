@@ -5,11 +5,14 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.0",
     "debug": "^2.2.0",
-    "express": "^3.21.2",
+    "express": "^4.13.4",
+    "express-validator": "^2.20.8",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.1.0",
+    "morgan": "^1.7.0",
     "mysql": "^2.11.1",
     "ngrok": "^2.2.2"
   },

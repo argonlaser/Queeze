@@ -5,17 +5,17 @@ module.exports = function (app, dbParams) {
   var url = require('url');
   
 //  logger.debug(tracker, 'Inside');
-//  var userRoute = require('../Users/routes.js')(params);
-//  var gameRoute = require('../Games/routes.js')(params);
-//  var microRoute = require('../Micro/routes.js')(params);
+  var studentRoute = require('../Student/routes.js')(dbParams);
+//  var gameRoute = require('../Games/routes.js')(dbParams);
+//  var microRoute = require('../Micro/routes.js')(dbParams);
 
   // Custom routes
-//  var routeHandlers = [
-//    {
-//      baseRoute : '/users',
-//      handler : userRoute.handler,
-//      childRoutes : userRoute.routes
-//    },
+  var routeHandlers = [
+    {
+      baseRoute : '/',
+      handler : studentRoute.handler,
+      childRoutes : studentRoute.routes
+    },
 //    {
 //      baseRoute : '/games',
 //      handler : gameRoute.handler,
@@ -26,38 +26,40 @@ module.exports = function (app, dbParams) {
 //      handler : microRoute.handler,
 //      childRoutes : microRoute.routes
 //    }
-//  ];
-
-  
-//  routeHandlers.forEach(function(r) {
-//    logger.debug(tracker, 'Initializing route', r.baseRoute);
-//    app.use(r.baseRoute, r.handler);
-//  });
-  
-  //GET home page request
-app.get("/",function(req,res){
-  res.sendFile('./views/elc.html');
-});
-  
-//GET reg page request
-app.get("/elc_reg", function(req,res) {
-  res.sendFile('./views/elc_reg.html');
-});
-
-//POST details request
-app.post("/submitDetails",function(req,res) {
+  ];
   var getQuesdata = require('./getQuesData.js');
   var data = null;
   getQuesdata(function(err, localData) {
     data = localData;
-  })
+  });
+  app.locals.data = data;
+  console.log(app.locals.data)
+  
+  routeHandlers.forEach(function(r) {
+    console.log(tracker, 'Initializing route', r.baseRoute);
+    app.use(r.baseRoute, r.handler);
+  });
+  
+//  //GET home page request
+//app.get("/",function(req,res){
+//  res.sendFile('./views/elc.html');
+//});
+  
+//GET reg page request
+//app.get("/elc_reg", function(req,res) {
+//  res.sendFile('./views/elc_reg.html');
+//});
+
+//POST details request
+app.post("/submitDetails",function(req,res) {
+    
   var rollno = req.body.rollno;
   var name = req.body.name ;
   var year = req.body.year ;
   var events = req.body.events ;
   var eventsStr = "";
   var mark = '0';
-
+  var data = app.locals.data;
   for(var x in events) {
     eventsStr += req.body.events[x] + "," ;
   }
@@ -92,6 +94,7 @@ app.post("/submitDetails",function(req,res) {
 
 app.post("/submitAnswers" , function(req , res ) {
   var getQuesdata = require('./getQuesData.js');
+  
   var queryData = url.parse(req.url, true).query;
   var rollno = queryData.rollno;
   var temp = "" ;
@@ -119,7 +122,8 @@ app.post("/submitAnswers" , function(req , res ) {
       res.send(err);
     } else {
       //res.send(rollno + 'has scored ' + count );
-      res.sendFile('./views/elc_end.html');
+      var path =  require ('path');
+      res.sendFile(path.resolve('./views/elc_end.html'));
     }
   });
   console.log(rollno + " scored " + count);
@@ -147,7 +151,10 @@ app.post("/submitAnswers" , function(req , res ) {
   // production error handler
   // no stacktraces leaked to user
   app.use(function(err, req, res, next) {
-    res.status(err.code);
-    res.json({ error : err.error });
+    if(err) {
+      res.status(err.code);
+     // console.log(err.error);
+      res.json({ error : err.error });
+    }
   });
 };

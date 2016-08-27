@@ -28,19 +28,7 @@ module.exports = function (app, dbParams) {
 //    }
 //  ];
 
-  // API info
-//  app.get('/', function(req, res) {
-//    return res.json({
-//      app : 'Paper Bingo',
-//      endpoints : routeHandlers.map(function(r) {
-//        return {
-//          base : r.baseRoute,
-//          routes : r.childRoutes
-//        };
-//      })
-//    });
-//  });
-
+  
 //  routeHandlers.forEach(function(r) {
 //    logger.debug(tracker, 'Initializing route', r.baseRoute);
 //    app.use(r.baseRoute, r.handler);
@@ -48,12 +36,12 @@ module.exports = function (app, dbParams) {
   
   //GET home page request
 app.get("/",function(req,res){
-  res.sendfile('./views/elc.html');
+  res.sendFile('./views/elc.html');
 });
   
 //GET reg page request
 app.get("/elc_reg", function(req,res) {
-  res.sendfile('./views/elc_reg.html');
+  res.sendFile('./views/elc_reg.html');
 });
 
 //POST details request
@@ -131,7 +119,7 @@ app.post("/submitAnswers" , function(req , res ) {
       res.send(err);
     } else {
       //res.send(rollno + 'has scored ' + count );
-      res.sendfile('./views/elc_end.html');
+      res.sendFile('./views/elc_end.html');
     }
   });
   console.log(rollno + " scored " + count);
